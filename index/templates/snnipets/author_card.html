@@ -1,0 +1,7 @@
+<li class="media col-12 col-md-6 col-lg-3 py-2">
+    <a href="{{ author.absolute_url }}"><img src="{% if book.image %}{{ book.image }}{% else %}https://via.placeholder.com/100x150.png?text={{ author.name }}{% endif %}" class="mr-3" alt="{{ author.name }}" style="max-width: 100px;"></a>
+    <div class="media-body">
+      <a href="{{ author.absolute_url }}"><h5 class="mt-0 mb-1 book-title">{{ author.name }}</h5></a>
+	    <span class="badge badge-dark">Books: {{ author.book_set.all.count }}</span>
+    </div>
+</li>

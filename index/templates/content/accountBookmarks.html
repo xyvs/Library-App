@@ -1,0 +1,10 @@
+{% extends 'base/base.html'%}
+{% block title %}{{ user }} Bookmarks{% endblock %}
+
+{% block body %}
+	{% if user.profile.rents.all %}
+		{% include 'snnipets/book_card_deck.html' with title="Bookmarked Books" %}
+	{% else %}
+		<p class="text-muted">No rents available.</p>
+	{% endif %}
+{% endblock%}

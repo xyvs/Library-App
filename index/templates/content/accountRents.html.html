@@ -1,17 +1,21 @@
 {% extends 'base/base.html'%}
-{% block title %}{{ profile }} Account{% endblock%}
+{% block title %}{{ profile }} Rents{% endblock%}
 
 {% block body %}
-{{ profile }}
+
+<div class="container pt-3">
 {% if user.profile.rents.all %}
 <div class="py-3">
-	<h2 class="category-title">Last Rents</h2>
+	<h2 class="category-title">My Rents</h2>
 	<div class="row">
-		{% for rent in user.profile.rents.all|slice:":8" %}
+		{% for rent in rents %}
 			{% include 'snnipets/book_card.html' with book=rent.book %}
 		{% endfor %}
 	</div>
 </div>
 <hr> 
 {% endif %}
+
+
+</div>
 {% endblock%}

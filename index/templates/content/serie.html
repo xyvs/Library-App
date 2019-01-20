@@ -2,7 +2,5 @@
 {% block title %}Books from {{ serie }}{% endblock%}
 
 {% block body %}
-<div class="container">
 	{% include 'snnipets/book_card_deck.html' with book_set=serie.books.all %}
-</div>
 {% endblock%}

@@ -1,14 +1,10 @@
 {% extends 'base/base.html'%}
-{% block title %}Browse books - Library App{% endblock%}
+{% block title %}Browse series - Library App{% endblock%}
 
 {% block body %}
-<div class="container pt-3">
-
-	<ul>
+<div class="row">
 	{% for serie in series %}
-	<li><a href="{{ serie.absolute_url }}">{{ serie }}</a></li>
+		{% include 'snnipets/serie_card.html' %}
 	{% endfor %}
-	</ul>
-
 </div>
 {% endblock%}

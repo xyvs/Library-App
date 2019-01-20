@@ -1,12 +1,48 @@
 <li class="media col-12 col-md-6 col-lg-3 py-2">
-    <a href="{{ book.absolute_url }}"><img src="{{ book.image }}" class="mr-3" alt="{{ book.name }}"></a>
+
+    <a href="
+    {% if manageRents %}
+      {{ rent.absolute_url }}
+    {% elif searchMode %}
+      {% url 'ibook' book.id %}
+    {% elif manageRequests %}
+      {% url 'request' book.pk %}
+    {% else %}
+      {{ book.absolute_url }}
+    {% endif %}
+    "><img src="{{ book.image }}" class="mr-3" alt="{{ book.name }}" style="max-width: 100px;"></a>
     <div class="media-body">
-      <a href="{{ book.absolute_url }}"><h5 class="mt-0 mb-1 book-title">{{ book.name }}</h5></a>
+      {% if not manageRents %}
+      <a href="
+      {% if searchMode %}
+        {% url 'ibook' book.id %}
+      {% elif manageRequests %}
+        {% url 'request' book.id %}
+      {% else %}
+        {{ book.absolute_url }}
+      {% endif %}
+      "><h5 class="mt-0 mb-1 book-title">{{ book.name }}</h5></a>
+
+
+      {% if searchMode %}
+      <p class="book-author">{{ book.author }}</p>
+      {% elif manageRequests %}
+      <p class="book-author">{{ book.requested_by }}</p>
+      {% else %}
       <a href="{{ book.author.all.0.absolute_url }}"><p class="book-author">{{ book.author.all.0.name }}</p></a>
+      {% endif %}
+
+
+      {% else %}
+      <a href="{{ rent.absolute_url }}"><h5 class="mt-0 mb-1 book-title">{{ book.name }}</h5></a>
+      <p class="book-author">{{ rent.user }}</p>
+      {% endif %}
       {% if rent %}
 	    <span class="badge badge-{{ rent.badge_type }}">{{ rent.return_date_str }}</span>
   		{% else %}
-  	<span class="badge badge-dark">Items: {{ book.quantity }}</span>
+        {% if not searchMode and not manageRequests %}
+        <span class="badge badge-dark">Items: {{ book.quantity }}</span>
+        {% endif %}
       {% endif %}
     </div>
   </li>

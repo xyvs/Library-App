@@ -12,22 +12,14 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'browse' %}">Browse</a>
       </li>
-
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Categories
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Drama</a>
-          <a class="dropdown-item" href="#">War</a>
-          <a class="dropdown-item" href="#">Learning</a>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link" href="#">All Books</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'searchRequest' %}">Request</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
+        <a class="nav-link" href="{% url 'about' %}">About</a>
       </li>
     </ul>
 
@@ -56,12 +48,16 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'account'%}">Profile</a>
-          <a class="dropdown-item" href="#">Settings</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Rents</a>
+          <a class="dropdown-item" href="{% url 'accountRents' %}">Rents</a>
           <a class="dropdown-item" href="#">Reviews</a>
-          <a class="dropdown-item" href="#">Bookmarks</a>
-          <a class="dropdown-item" href="#">Likes</a>
+          <a class="dropdown-item" href="{% url 'accountBookmarks' %}">Bookmarks</a>
+          <a class="dropdown-item" href="{% url 'accountLikes' %}">Likes</a>
+          {% if user.is_staff %}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'rents' %}">Manage Rents</a>
+          <a class="dropdown-item" href="{% url 'manageRequests' %}">Manage Request</a>
+          {% endif %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Logout</a>
         </div>

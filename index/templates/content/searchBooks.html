@@ -1,10 +1,6 @@
 {% extends 'base/base.html'%}
-{% block title %}Browse books - Library App{% endblock%}
+{% block title %}Search results - Library App{% endblock%}
 
 {% block body %}
-<div class="container">
-
-	{% include 'snnipets/book_card_deck.html' with book_set=books title="Search result:" %}
-
-</div>
+	{% include 'snnipets/book_card_deck.html' with book_set=books title="Search results:" %}
 {% endblock%}

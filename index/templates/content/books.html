@@ -2,14 +2,10 @@
 {% block title %}Browse books - Library App{% endblock%}
 
 {% block body %}
-<div class="container pt-3">
-
-	{% include 'snnipets/book_card_deck.html' with book_set=adventure_books title="Popular Books" %}
-  	{% include 'snnipets/book_card_deck.html' with book_set=lastest_books title="Last Books" %}
-	{% include 'snnipets/book_card_deck.html' with book_set=adventure_books title="Adventure Books" %}
-	{% include 'snnipets/book_card_deck.html' with book_set=drama_books title="Drama Books" %}
-	{% include 'snnipets/book_card_deck.html' with book_set=crime_books title="Crime Books" %}
-	{% include 'snnipets/book_card_deck.html' with book_set=fantasy_books title="Fantasy Books" %}
-
-</div>
+{% include 'snnipets/book_card_deck.html' with book_set=adventure_books title="Popular Books" %}
+{% include 'snnipets/book_card_deck.html' with book_set=lastest_books title="Last Books" %}
+{% include 'snnipets/book_card_deck.html' with book_set=adventure_books title="Adventure Books" %}
+{% include 'snnipets/book_card_deck.html' with book_set=drama_books title="Drama Books" %}
+{% include 'snnipets/book_card_deck.html' with book_set=crime_books title="Crime Books" %}
+{% include 'snnipets/book_card_deck.html' with book_set=fantasy_books title="Fantasy Books" %}
 {% endblock%}

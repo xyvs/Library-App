@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 from django.views.decorators.http import require_POST
 
@@ -9,6 +10,7 @@ from . import models, forms, functions
 
 import requests
 import xmltodict
+import datetime
 
 ###########
 # Content #
@@ -17,6 +19,9 @@ import xmltodict
 def index(request):
 	news = models.New.objects.all()[:5]
 	return render(request, 'content/index.html', {'news':news})
+
+def about(request):
+	return render(request, 'content/about.html', {})
 
 ################
 # Browse Views #
@@ -113,12 +118,12 @@ def searchRequest(request):
 		
 		books_list = reponse_xml['GoodreadsResponse']['search']['results']['work']
 		
-		books = [[
-			x['best_book']['id']['#text'],
-			x['best_book']['title'],
-			x['best_book']['author']['name'],
-			x['best_book']['image_url'],
-		] for x in books_list ]
+		books = [{
+			'id':x['best_book']['id']['#text'],
+			'name':x['best_book']['title'],
+			'author':x['best_book']['author']['name'],
+			'image':x['best_book']['image_url'],
+		} for x in books_list ]
 
 		pagination = {
 			'total_pages':total_pages,
@@ -190,35 +195,56 @@ def account(request):
 	profile = request.user.profile
 	return render(request, 'content/account.html', {'profile':profile})
 
+@login_required
+def accountRents(request):
+	rents = request.user.profile.rents.all()
+	return render(request, 'content/accountRents.html', {'rents':rents})
+
+@login_required
+def accountBookmarks(request):
+	books = request.user.bookmarks.all()
+	return render(request, 'content/accountBookmarks.html', {'book_set':books})
+
+@login_required
+def accountLikes(request):
+	books = request.user.likes.all()
+	return render(request, 'content/accountLikes.html', {'book_set':books})
+
 ###############
 # Admin Views #
 ###############
 
 @login_required
+@staff_member_required
 def rents(request):
 	rents = models.Rent.objects.all()
 	return render(request, 'content/rents.html', {'rents':rents})
 
 @login_required
+@staff_member_required
 def rent(request,rent_id):
 	rent = get_object_or_404(models.Rent, pk=rent_id)
 	return render(request, 'content/rent.html', {'rent':rent})
 
 @login_required
+@staff_member_required
 def manageRequests(request):
 	requests = models.Request.objects.all()
 	return render(request, 'content/requests.html', {'requests':requests})
 
 @login_required
+@staff_member_required
 def request(request,request_id):
 	request_obj = models.Request.objects.get(pk=request_id)
-	return render(request, 'content/request.html', {'request_obj':request_obj})
+	book = models.Book.objects.filter(goodreads_id=request_obj.goodreads_id)
+	return render(request, 'content/request.html', {'request_obj':request_obj,'book':book})
 
 #########
 # Forms #
 #########
 
 @login_required
+@staff_member_required
 def editBook(request,book_id):
 
 	book = get_object_or_404(models.Book, pk=book_id)
@@ -237,6 +263,7 @@ def editBook(request,book_id):
 ###########
 
 @login_required
+@staff_member_required
 def addBook(request,ibook_id):
 
 	book,created = functions.addBookToLibrary(request,ibook_id)
@@ -275,7 +302,7 @@ def rentBook(request,book_id):
 			if not created:
 				messages.warning(request, 'You have an active rent for this item, that ends on {}.'.format(rent.return_date()))
 			else:
-				messages.success(request, 'You have succesfully rented this book. You can pick it up in the library.')
+				messages.success(request, 'You have succesfully rented this book. You can pick it up at the library.')
 				messages.info(request, 'You have until {} to return this book!'.format(rent.return_date()))
 
 				book.quantity -= 1
@@ -289,6 +316,7 @@ def rentBook(request,book_id):
 	return redirect('book', book_id)
 
 @login_required
+@staff_member_required
 def returnRent(request,rent_id):
 	
 	rent = get_object_or_404(models.Rent, pk=rent_id)
@@ -296,6 +324,7 @@ def returnRent(request,rent_id):
 	rent.active = False
 	rent.returned = True
 	rent.returned_to = request.user.profile
+	rent.returned_date = datetime.datetime.now()
 	
 	rent.book.quantity += 1
 	rent.book.save()
@@ -307,7 +336,6 @@ def returnRent(request,rent_id):
 	return redirect('rent', rent_id)
 
 
-################## Fix this with profile not now
 @login_required
 def likeBook(request,book_id):
 	
@@ -331,5 +359,31 @@ def dislikeBook(request,book_id):
 		messages.warning(request, 'You unliked this book.')
 	else:
 		messages.warning(request, 'You already unliked this book.')
+
+	return redirect('book', book_id)
+
+@login_required
+def bookmarkBook(request,book_id):
+	
+	book = get_object_or_404(models.Book, pk=book_id)
+
+	if request.user not in book.bookmarks.all():
+		book.bookmarks.add(request.user)
+		messages.success(request, 'You bookmarked this book.')
+	else:
+		messages.warning(request, 'You already bookmarked this book.')
+
+	return redirect('book', book_id)
+
+@login_required
+def unbookmarkBook(request,book_id):
+	
+	book = get_object_or_404(models.Book, pk=book_id)
+	
+	if request.user in book.bookmarks.all():
+		book.bookmarks.remove(request.user)
+		messages.warning(request, 'You unbookmarked this book.')
+	else:
+		messages.warning(request, 'You already unbookmarked this book.')
 
 	return redirect('book', book_id)

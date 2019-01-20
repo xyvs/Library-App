@@ -2,13 +2,9 @@
 {% block title %}Browse authors - Library App{% endblock%}
 
 {% block body %}
-<div class="container pt-3">
-
-	<ul>
+<div class="row">
 	{% for author in authors %}
-	<li><a href="{{ author.absolute_url }}">{{ author }}</a></li>
+		{% include 'snnipets/author_card.html' %}
 	{% endfor %}
-	</ul>
-
 </div>
 {% endblock%}

@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
 	# Site
 	path('', views.index, name="index"),
-	path('about', views.index, name="about"), # Add
+	path('about', views.about, name="about"), # Add
 
 	# Site Content
 	path('blog/', views.index, name="blog"), # Add
@@ -27,6 +27,8 @@ urlpatterns = [
 	path('book/<int:book_id>/rent/', views.rentBook, name="rentBook"),
 	path('book/<int:book_id>/like/', views.likeBook, name="likeBook"),
 	path('book/<int:book_id>/dislike/', views.dislikeBook, name="dislikeBook"),
+	path('book/<int:book_id>/bookmark/', views.bookmarkBook, name="bookmarkBook"),
+	path('book/<int:book_id>/unbookmark/', views.unbookmarkBook, name="unbookmarkBook"),
 
 	path('ibook/<int:ibook_id>/', views.ibook, name="ibook"),
 	path('ibook/<int:ibook_id>/add/', views.addBook, name="addBook"),
@@ -40,10 +42,10 @@ urlpatterns = [
 
 	# Account
 	path('account/', views.account, name="account"),
-	path('account/rents/', views.account, name="myRents"),
+	path('account/rents/', views.accountRents, name="accountRents"),
 	path('account/reviews/', views.account, name="myReviews"),
-	path('account/bookmarks/', views.account, name="myBookmarks"),
-	path('account/likes/', views.account, name="myLikes"),
+	path('account/bookmarks/', views.accountBookmarks, name="accountBookmarks"),
+	path('account/likes/', views.accountLikes, name="accountLikes"),
 	path('account/settings/', views.account, name="mySettings"),
 
 	# Admin

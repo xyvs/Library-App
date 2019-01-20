@@ -23,10 +23,10 @@ def addBookToLibrary(request,ibook_id):
 		goodreads_id=ibook_id,
 		image=ibook['image_url'],
 		description=ibook['description'],
-		publisher=ibook['publisher'],
+		publisher=ibook['publisher'] or "None",
 		language_code=ibook['language_code'],
 		number_of_pages=ibook['num_pages'],
-		format_of_release=ibook['format'],
+		format_of_release=ibook['format'] or "None",
 		added_by=request.user.profile,
 	)
 
@@ -68,10 +68,10 @@ def requestBookToLibrary(request,ibook_id):
 		goodreads_id=ibook_id,
 		image=ibook['image_url'],
 		description=ibook['description'],
-		publisher=ibook['publisher'],
+		publisher=ibook['publisher'] or "None",
 		language_code=ibook['language_code'],
 		number_of_pages=ibook['num_pages'],
-		format_of_release=ibook['format'],
+		format_of_release=ibook['format'] or "None",
 		requested_by=request.user.profile,
 	)
 

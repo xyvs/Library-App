@@ -110,6 +110,12 @@ class Request(BookBase):
 	def absolute_url(self):
 		return reverse('request', args=[self.pk])
 
+	def add_book(self):
+		return reverse('addBook', args=[self.goodreads_id])
+
+	class Meta:
+		ordering = ['-date_added']
+
 class Book(BookBase):
 	category = models.CharField(max_length=100, choices=BOOK_CATEGORIES, blank=True)
 	quantity = models.PositiveIntegerField(default=1)
@@ -118,7 +124,8 @@ class Book(BookBase):
 	date_added = models.DateTimeField(auto_now_add=True)
 	date_edited = models.DateTimeField(auto_now=True)
 	
-	likes = models.ManyToManyField(User, related_name="books_liked", blank=True)
+	likes = models.ManyToManyField(User, related_name="likes", blank=True)
+	bookmarks = models.ManyToManyField(User, related_name="bookmarks", blank=True)
 
 	class Meta:
 		ordering = ['-date_added']
