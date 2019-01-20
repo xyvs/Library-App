@@ -51,13 +51,20 @@ def save_user_profile(sender, instance, **kwargs):
 # Stafd Models #
 ################
 
-class new(models.Model):
+class New(models.Model):
 	title = models.CharField(max_length=100)
+	image = models.URLField()
 	body = models.TextField()
 
 	author = models.ForeignKey(Profile, on_delete=models.CASCADE)
 	date_added = models.DateTimeField(auto_now_add=True)
 	date_edited = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.title
+
+	def absolute_url(self):
+		return reverse('new', args=[self.pk])
 
 #################
 # Default Class #

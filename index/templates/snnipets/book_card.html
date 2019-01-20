@@ -2,7 +2,7 @@
     <a href="{{ book.absolute_url }}"><img src="{{ book.image }}" class="mr-3" alt="{{ book.name }}"></a>
     <div class="media-body">
       <a href="{{ book.absolute_url }}"><h5 class="mt-0 mb-1 book-title">{{ book.name }}</h5></a>
-      <p class="book-author">{{ book.author.all.0.name }}</p>
+      <a href="{{ book.author.all.0.absolute_url }}"><p class="book-author">{{ book.author.all.0.name }}</p></a>
       {% if rent %}
 	    <span class="badge badge-{{ rent.badge_type }}">{{ rent.return_date_str }}</span>
   		{% else %}

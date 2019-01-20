@@ -10,6 +10,7 @@ urlpatterns = [
 	path('request/', views.searchRequest, name="searchRequest"),
 	
 	path('category/<slug:category>/', views.category, name="category"),
+	path('last/', views.last, name="last"),
 
 	path('book/<int:book_id>/', views.book, name="book"),
 	path('book/<int:book_id>/edit/', views.editBook, name="editBook"),
@@ -22,6 +23,8 @@ urlpatterns = [
 	path('ibook/<int:ibook_id>/add/', views.addBook, name="addBook"),
 	path('ibook/<int:ibook_id>/request/', views.requestBook, name="requestBook"),
 	
+	path('new/<int:new_id>/', views.new, name="new"),
+
 	path('authors/', views.authors, name="authors"),
 	path('author/<int:author_id>/', views.author, name="author"),
 

@@ -1,18 +1,12 @@
-vista
+Vistas
 
-index - ultimas noticias, si está logeado; libros actuales, retrasos etc. # Done
-browse - Ver libros por categoria y algoritmos extras.
-book - Informacion de libro, like, rentar. Información de renta. # Done
-reuqest . Buscar libros por la api y realizar solicitudes. # Done
-ibook - Información de libro, realizar solicitud por parte del usuario. # Done
+Book Categories views
 
-cuenta - manejar subcripciones, editar nombre, fecha de nacimiento. etc.
-
-
-Editar información de libro y cantidades. # Done
-Vista de solicitudes y su aprobación. # Done
-Regreso de libros, solo por usuario administrador. # Done
-
-# Corregir Diseño
-
-No prioridas
+Ibook
+Libro
+Authors
+Author
+Series
+Serie
+News
+New

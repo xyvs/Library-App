@@ -7,13 +7,18 @@
 
 {{ profile }}
 
-<div class="pt-3">
-	<ul class="list-group">
-	{% for rent in profile.rents.all %}
-		<li class="list-group-item"><a href="{{ rent.book.absolute_url }}">{{ rent.book }}</a> - {{ rent.active }} on {{ rent.date_rented }}</li>
-	{% endfor %}
-	</ul>
+{% if user.profile.rents.all %}
+<div class="py-3">
+	<h2 class="category-title">My Rents</h2>
+	<div class="row">
+		{% for rent in user.profile.rents.all|slice:":8" %}
+			{% include 'snnipets/book_card.html' with book=rent.book %}
+		{% endfor %}
+	</div>
 </div>
+<hr> 
+{% endif %}
+
 
 </div>
 {% endblock%}

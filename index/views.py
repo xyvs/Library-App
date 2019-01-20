@@ -15,32 +15,12 @@ import xmltodict
 ###########
 
 def index(request):
-	return render(request, 'content/index.html', {})
+	news = models.New.objects.all()[:5]
+	return render(request, 'content/index.html', {'news':news})
 
 ################
 # Browse Views #
 ################
-
-def search(request):
-
-	search = request.GET.get('q')
-	category = request.GET.get('c')
-
-	if category == 'title':
-		books = models.Book.objects.filter(name__icontains=search)
-	elif category == 'isbn':
-		books = models.Book.objects.filter(isbn__icontains=search)
-	elif category == 'author':
-		authors = models.Author.objects.filter(name__icontains=search)
-		books = models.Book.objects.filter(author__in=authors)
-	elif category == 'description':
-		books = models.Book.objects.filter(description__icontains=search)
-	elif category == 'series':
-		series = models.Serie.objects.filter(name__icontains=search)
-		books = models.Book.objects.filter(series__in=series)
-
-	return render(request, 'content/searchBooks.html', {'books':books})
-
 
 def browse(request):
 
@@ -71,6 +51,27 @@ def series(request):
 	series = models.Serie.objects.all()[:10]
 	return render(request, 'content/series.html', {'series':series})
 
+def search(request):
+
+	search = request.GET.get('q')
+	category = request.GET.get('c')
+
+	if category == 'title':
+		books = models.Book.objects.filter(name__icontains=search).order_by('name')
+	elif category == 'isbn':
+		books = models.Book.objects.filter(isbn__icontains=search).order_by('name')
+	elif category == 'author':
+		authors = models.Author.objects.filter(name__icontains=search)
+		books = models.Book.objects.filter(author__in=authors).order_by('name')
+	elif category == 'description':
+		books = models.Book.objects.filter(description__icontains=search).order_by('name')
+	elif category == 'series':
+		series = models.Serie.objects.filter(name__icontains=search)
+		books = models.Book.objects.filter(series__in=series).order_by('name')
+
+	return render(request, 'content/searchBooks.html', {'books':books})
+
+@login_required
 def searchRequest(request):
 
 	search = request.GET.get('q')
@@ -126,7 +127,8 @@ def searchRequest(request):
 
 def book(request,book_id):
 	book = get_object_or_404(models.Book, pk=book_id)
-	rented = book in request.user.profile.getRentedBooks()
+	books_rented = request.user.profile.getRentedBooks() if request.user.is_authenticated else []
+	rented = book in books_rented
 	return render(request, 'content/book.html', {'book':book, 'rented':rented})
 
 def ibook(request,ibook_id):
@@ -143,6 +145,10 @@ def ibook(request,ibook_id):
 
 	return render(request, 'content/ibook.html', content)
 
+def new(request,new_id):
+	new = get_object_or_404(models.New, pk=new_id)
+	return render(request, 'content/new.html', {'new':new })
+
 def author(request,author_id):
 	author = get_object_or_404(models.Author, pk=author_id)
 	return render(request, 'content/author.html', {'author':author })
@@ -154,6 +160,17 @@ def category(request,category):
 def serie(request,serie_id):
 	serie = get_object_or_404(models.Serie, pk=serie_id)
 	return render(request, 'content/serie.html', {'serie':serie })
+
+
+
+def last(request):
+
+	content = {
+		'book_set':models.Book.objects.all(),
+		'title':"Last Books",
+	}
+	
+	return render(request, 'content/category.html', content)
 
 ##################
 # Manage Account #
@@ -228,7 +245,7 @@ def requestBook(request,ibook_id):
 	if not created:
 		messages.warning(request, 'This book was already requested.')
 	else: 
-		messages.success(request, 'This request was succesfully made.')
+		messages.success(request, 'You have requested this book.')
 
 	return redirect('ibook', ibook_id)
 
@@ -249,13 +266,13 @@ def rentBook(request,book_id):
 			if not created:
 				messages.warning(request, 'You have an active rent for this item, that ends on {}.'.format(rent.return_date()))
 			else:
-				messages.success(request, 'You succesfully rented this book. You can pick it up in the library.')
+				messages.success(request, 'You have succesfully rented this book. You can pick it up in the library.')
 				messages.info(request, 'You have until {} to return this book!'.format(rent.return_date()))
 
 				book.quantity -= 1
 				book.save()
 		else:
-			messages.warning(request, 'The rent of this book isn\'t available now.')
+			messages.warning(request, 'The rent of this book isn\'t available for now.')
 	
 	else:
 		messages.warning(request, 'You cannot rent more that {} books.'.format(rents_available))

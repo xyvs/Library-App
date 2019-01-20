@@ -1,10 +1,8 @@
 {% extends 'base/base.html'%}
-{% block title %}{{ author }}{% endblock%}
+{% block title %}{{ title }}{% endblock%}
 
 {% block body %}
-<div class="container pt-3">
-
-	{{ books }}
-
+<div class="container">
+	{% include 'snnipets/book_card_deck.html' %}
 </div>
 {% endblock%}
