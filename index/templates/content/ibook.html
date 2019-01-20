@@ -1,0 +1,75 @@
+{% extends 'base/base.html'%}
+{% block title %}{{ ibook.title }}{% endblock%}
+
+{% block body %}
+<div class="container pt-3">
+
+	<a class="btn btn-sm btn-primary {% if book %}disabled{% endif %}" href="{% url 'addBook' ibook_id %}">Add Book</a>
+	<a class="btn btn-sm btn-primary {% if book or request_obj %}disabled{% endif %}" href="{% url 'requestBook' ibook_id %}">Request Book</a>
+
+	<h2>Information</h2>
+	{{ ibook.title }}<br>
+	{{ ibook.isbn }}<br>
+	{{ ibook.image_url }}<br>
+	{{ ibook.publication_year }}<br>
+	{{ ibook.publication_month }}<br>
+	{{ ibook.publication_day }}<br>
+	{{ ibook.publisher }}<br>
+	{{ ibook.language_code }}<br>
+	{{ ibook.average_rating }}<br>
+	{{ ibook.description }}<br>
+	{{ ibook.num_pages }}<br>
+	{{ ibook.format }}<br>
+	<br>
+
+	<h2>Author</h2>
+	{% for key,authors in ibook.authors.items %}
+	{{ authors.name }}
+
+		{% for author in authors %}
+			{{ author.name }}
+		{% endfor %}
+	{% endfor %}<br>
+	<br>
+
+	{% if ibook.series_works.items|length > 0 %}
+	<h2>Series</h2>
+		{% for key,series in ibook.series_works.items %}
+
+			{% if series.id %}
+				{{ series.id }}
+				{{ series.series.title }}
+				{{ series.series.description }}
+				{{ series.series.primary_work_count }}
+			{% else %}
+				{% for serie in series %}
+					{{ serie.id }}
+					{{ serie.series.title }}
+					{{ serie.series.description }}
+					{{ serie.series.primary_work_count }}
+					<br><br>
+				{% endfor %}
+			{% endif %}
+		
+		{% endfor %}<br>
+	<br>
+	{% endif %}
+
+	<h2>Related Books</h2>
+	{% for key,books in ibook.similar_books.items %}
+		{% for book in books %}
+			{{ book.id }}
+			{{ book.title }}
+			{{ book.image_url }}
+			{{ book.num_pages }}
+			{% for key,authors in book.authors.items %}
+				{% for author in authors %}
+					{{ author.name }}
+				{% endfor %}
+			{% endfor %}
+			<br>
+		{% endfor %}
+	{% endfor %}<br>
+
+</div>
+{% endblock%}

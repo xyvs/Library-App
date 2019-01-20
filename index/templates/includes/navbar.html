@@ -1,0 +1,76 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light container my-3">
+  <a class="navbar-brand font-weight-bold" href="{% url 'index' %}">Library</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'index' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'browse' %}">Browse</a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Categories
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Drama</a>
+          <a class="dropdown-item" href="#">War</a>
+          <a class="dropdown-item" href="#">Learning</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Blog</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'searchRequest' %}">Make request</a>
+      </li>
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
+      <div class="px-2">
+      <div class="form-group">
+        <label for="search-by" class="small text-muted mr-2">Search by</label>
+        <select class="form-control form-control-sm" name="c" id="search-by">
+          <option value="title">Title</option>
+          <option value="isbn">ISBN</option>
+          <option value="author">Author</option>
+          <option value="description">Description</option>
+          <option value="series">Serie</option>
+        </select>
+      </div>
+      </div>
+      <input class="form-control form-control-sm mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-sm btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+    <ul class="navbar-nav px-2">
+		{% if user.is_authenticated %}
+      <li class="nav-item dropdown pull-right">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          My account
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="#">My Rents</a>
+          <a class="dropdown-item" href="#">Settings</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Logout</a>
+        </div>
+      </li>
+      {% else%}
+      <li class="nav-item">
+        <a class="nav-link" href="#">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Apply</a>
+      </li>
+      {% endif %}
+    </ul>
+
+  </div>
+</nav>

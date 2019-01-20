@@ -1,0 +1,16 @@
+{% extends 'base/base.html'%}
+{% block title %}{{ rent }} Account{% endblock%}
+
+{% block body %}
+
+<div class="container pt-3">
+
+{% if rent.active %}
+<a class="btn btn-sm btn-dark" href="{% url 'returnRent' rent.id %}">Mark as returned</a>
+{% endif %}
+
+<br>
+{{ rent }}
+
+</div>
+{% endblock%}

@@ -1,0 +1,14 @@
+{% extends 'base/base.html'%}
+{% block title %}Browse books - Library App{% endblock%}
+
+{% block body %}
+<div class="container pt-3">
+
+	<ul>
+	{% for serie in series %}
+	<li><a href="{{ serie.absolute_url }}">{{ serie }}</a></li>
+	{% endfor %}
+	</ul>
+
+</div>
+{% endblock%}

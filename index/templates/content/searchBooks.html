@@ -1,0 +1,10 @@
+{% extends 'base/base.html'%}
+{% block title %}Browse books - Library App{% endblock%}
+
+{% block body %}
+<div class="container">
+
+	{% include 'snnipets/book_card_deck.html' with book_set=books title="Results for search" %}
+
+</div>
+{% endblock%}

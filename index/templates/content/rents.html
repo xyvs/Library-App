@@ -1,0 +1,17 @@
+{% extends 'base/base.html'%}
+{% block title %}{{ profile }} Account{% endblock%}
+
+{% block body %}
+
+<div class="container pt-3">
+
+<div class="pt-3">
+	<ul class="list-group">
+	{% for rent in rents %}
+		<li class="list-group-item"><a href="{{ rent.absolute_url }}">{{ rent.book }} - {{ rent.active }}</a></li>
+	{% endfor %}
+	</ul>
+</div>
+
+</div>
+{% endblock%}

@@ -1,0 +1,60 @@
+{% extends 'base/base.html'%}
+{% block title %}
+
+{% if title %}
+		Search for: {{ title }}
+	{% else %}
+		Search for a book
+{% endif %}
+
+{% endblock%}
+{% block body %}
+<div class="container pt-3">
+	
+	{% if title %}
+		<h2>Search for: {{ title }}</h2>
+	{% else %}
+		<h2>Search for a book</h2>
+	{% endif %}
+
+	<form action="#" method="get">
+		<div class="input-group">
+			<input type="text" class="form-control" id="search" value="{% if title %}{{ title }}{% endif %}" name="q">
+			<div class="input-group-append">
+				<button type="submit" class="btn btn-primary">Search</button>
+			</div>
+		</div>
+	</form>
+
+	{% if title %}
+		{% if books|length > 0 %}
+			<ul class="list-group">
+				{% for book in books %}
+					<li><img src="{{ book.3 }}" alt="{{ book.1 }}"><a href="{% url 'ibook' book.0 %}">{{ book.1 }}</a> - <span class="small">{{ book.2 }}</span></li>
+				{% endfor %}
+			</ul>
+			<nav aria-label="pagination">
+				<ul class="pagination pt-4 justify-content-center">
+					{% if pagination.has_previous %}
+						<li class="page-item">
+							<a class="page-link" href="?q={{ title }}&page={{ pagination.previous }}"">Previous</a>
+						</li>
+					{% endif %}
+					
+					<li class="page-item" aria-current="page">
+						<a class="page-link">{{ pagination.current_page }} of {{ pagination.total_pages }}</a>
+					</li>
+					{% if pagination.has_next %}
+						<li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+						<a class="page-link" href="?q={{ title }}&page={{ pagination.next }}">Next</a>
+					</li>
+				{% endif %}
+			</ul>
+		</nav>
+		{% else %}
+			<p>No items founds</p>
+		{% endif %}
+	{% endif %}
+
+</div>
+{% endblock%}
