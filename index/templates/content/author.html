@@ -1,10 +1,8 @@
 {% extends 'base/base.html'%}
-{% block title %}{{ author }}{% endblock%}
+{% block title %}From by {{ author }}{% endblock%}
 
 {% block body %}
-<div class="container pt-3">
-
-	{{ author }}
-
+<div class="container">
+	{% include 'snnipets/book_card_deck.html' with book_set=author.book_set.all %}
 </div>
 {% endblock%}

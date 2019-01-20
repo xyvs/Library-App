@@ -43,6 +43,22 @@ def browse(request):
 
 	return render(request, 'content/books.html', content)
 
+
+def lastBooks(request):
+	content = {
+		'book_set':models.Book.objects.all(),
+		'title':"Last Books",
+	}
+	return render(request, 'content/category.html', content)
+
+def category(request,category):
+	books = models.Book.objects.filter(category=category)
+	content = {
+		'book_set':books,
+		'title':"Category {}".format(category.capitalize()),
+	}
+	return render(request, 'content/category.html', content)
+
 def authors(request):
 	authors = models.Author.objects.all()[:10]
 	return render(request, 'content/authors.html', {'authors':authors})
@@ -151,26 +167,19 @@ def new(request,new_id):
 
 def author(request,author_id):
 	author = get_object_or_404(models.Author, pk=author_id)
-	return render(request, 'content/author.html', {'author':author })
-
-def category(request,category):
-	books = models.Book.objects.filter(category=category)
-	return render(request, 'content/category.html', {'books':books })
+	content = {
+		'author':author,
+		'title':"Books by {}".format(author)
+	}
+	return render(request, 'content/author.html', content)
 
 def serie(request,serie_id):
 	serie = get_object_or_404(models.Serie, pk=serie_id)
-	return render(request, 'content/serie.html', {'serie':serie })
-
-
-
-def last(request):
-
 	content = {
-		'book_set':models.Book.objects.all(),
-		'title':"Last Books",
+		'serie':serie,
+		'title':"Books from {}".format(serie)
 	}
-	
-	return render(request, 'content/category.html', content)
+	return render(request, 'content/serie.html', content)
 
 ##################
 # Manage Account #
@@ -319,8 +328,8 @@ def dislikeBook(request,book_id):
 	
 	if request.user in book.likes.all():
 		book.likes.remove(request.user)
-		messages.warning(request, 'You disliked this book.')
+		messages.warning(request, 'You unliked this book.')
 	else:
-		messages.warning(request, 'You already disliked this book.')
+		messages.warning(request, 'You already unliked this book.')
 
 	return redirect('book', book_id)

@@ -3,27 +3,34 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+	# Site
 	path('', views.index, name="index"),
-	path('popular/', views.index, name="popular"),
+	path('about', views.index, name="about"), # Add
+
+	# Site Content
+	path('blog/', views.index, name="blog"), # Add
+	path('blog/<int:new_id>/', views.new, name="new"),
+
+	# Browse Views
 	path('browse/', views.browse, name="browse"),
 	path('search/', views.search, name="search"),
 	path('request/', views.searchRequest, name="searchRequest"),
 	
+	# Categories
+	path('popular/', views.index, name="popularBook"), # Add
+	path('last/', views.lastBooks, name="lastBooks"),
 	path('category/<slug:category>/', views.category, name="category"),
-	path('last/', views.last, name="last"),
 
+	# Content
 	path('book/<int:book_id>/', views.book, name="book"),
 	path('book/<int:book_id>/edit/', views.editBook, name="editBook"),
 	path('book/<int:book_id>/rent/', views.rentBook, name="rentBook"),
 	path('book/<int:book_id>/like/', views.likeBook, name="likeBook"),
 	path('book/<int:book_id>/dislike/', views.dislikeBook, name="dislikeBook"),
 
-
 	path('ibook/<int:ibook_id>/', views.ibook, name="ibook"),
 	path('ibook/<int:ibook_id>/add/', views.addBook, name="addBook"),
 	path('ibook/<int:ibook_id>/request/', views.requestBook, name="requestBook"),
-	
-	path('new/<int:new_id>/', views.new, name="new"),
 
 	path('authors/', views.authors, name="authors"),
 	path('author/<int:author_id>/', views.author, name="author"),
@@ -31,7 +38,13 @@ urlpatterns = [
 	path('series/', views.series, name="series"),
 	path('serie/<int:serie_id>/', views.serie, name="serie"),
 
+	# Account
 	path('account/', views.account, name="account"),
+	path('account/rents/', views.account, name="myRents"),
+	path('account/reviews/', views.account, name="myReviews"),
+	path('account/bookmarks/', views.account, name="myBookmarks"),
+	path('account/likes/', views.account, name="myLikes"),
+	path('account/settings/', views.account, name="mySettings"),
 
 	# Admin
 	path('rents/', views.rents, name="rents"),

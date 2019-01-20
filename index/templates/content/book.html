@@ -18,12 +18,12 @@
 							</a>
 						{% endif %}
 
-						<span class="mr-2"style="color: #d09115;"><span style="color: dark;" data-feather="bookmark"></span> Bookmark</span>
+						<span class="mr-2"style="color: orange;"><span style="color: dark;" data-feather="bookmark"></span> Bookmark</span>
 
 						{% if request.user in book.likes.all %}
-						<a href="{% url 'dislikeBook' book.pk %}"><span style="color: red;"><span data-feather="chevron-down"></span> Dislike</span></a>
+						<a href="{% url 'dislikeBook' book.pk %}"><span style="color: black;"><span data-feather="heart"></span> Unlike</span></a>
 						{% else %}
-						<a href="{% url 'likeBook' book.pk %}"><span style="color: green;"><span data-feather="chevron-up"></span> Like</span></a>
+						<a href="{% url 'likeBook' book.pk %}"><span style="color: red;"><span data-feather="heart"></span> Like</span></a>
 						{% endif %}
 						
 				</div>
