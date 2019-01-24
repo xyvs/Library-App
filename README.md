@@ -12,7 +12,7 @@ Esta es una aplicación diseñada para el uso de una librería, en ella se puede
 
 ## Uso
 
-Visitar http://localhost:8000/master/ para utilizar el sistema como usuario no registrado.
+Visitar http://localhost:8000/ para utilizar el sistema como usuario no registrado.
 
 Para utilizar el sistema como administrador ingresar como admin:admin en http://localhost:8000/master/.
 
