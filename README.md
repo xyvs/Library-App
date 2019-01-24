@@ -5,7 +5,9 @@ Esta es una aplicación diseñada para el uso de una librería, en ella se puede
 ## Instalación
 
 ```git clone https://github.com/xyvs/Library-App && cd Library-App/```
+
 ```pip install -r requeriments.txt```
+
 ```python3 manage.py runserver```
 
 ## Uso
