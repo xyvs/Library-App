@@ -17,8 +17,9 @@ urlpatterns = [
 	path('request/', views.searchRequest, name="searchRequest"),
 	
 	# Categories
-	path('popular/', views.index, name="popularBook"), # Add
-	path('last/', views.lastBooks, name="lastBooks"),
+	path('browse/popular/', views.index, name="popularBook"), # Add
+	path('browse/all/', views.allBooks, name="allBooks"),
+	path('browse/last/', views.lastBooks, name="lastBooks"),
 	path('category/<slug:category>/', views.category, name="category"),
 
 	# Content
@@ -56,5 +57,5 @@ urlpatterns = [
 	path('requests/', views.manageRequests, name="manageRequests"),
 	path('request/<int:request_id>/', views.request, name="request"),
 
-	
+	path('create/user/', views.createRandomUser, name="createRandomUser"),
 ]

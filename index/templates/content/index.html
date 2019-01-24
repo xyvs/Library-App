@@ -61,9 +61,15 @@
 
 	</div>
 	<div class="news col-12 col-md-8 order-1 order-md-2">
+		<h2 class="category-title">News</h2>
+		<hr>
+		{% if news %}
 		{% for new in news %}
 			{% include 'snnipets/new_post.html' %}
 		{% endfor%}
+		{% else %}
+		<p class="text-muted">No news at the moment.</p>
+		{% endif %}
 
 	</div>
 </div>

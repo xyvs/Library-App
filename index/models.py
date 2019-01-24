@@ -13,11 +13,46 @@ from django.dispatch import receiver
 # Multiple Choice #
 ###################
 
+
+
+
 BOOK_CATEGORIES = (
-	('adventure', 'Adventure'),
-	('drama', 'Drama'),
-	('crime', 'Crime'),
+	('biography ', 'Biography'),
+	('classic', 'Classic'),
+	('comics', 'Comics/Graphic novel'),
+	('crime', 'Crime/detective'),
+	('essay ', 'Essay'),
+	('fable', 'Fable'),
+	('fairy-tailr', 'Fairy tale'),
+	('fan-fiction', 'Fan fiction'),
 	('fantasy', 'Fantasy'),
+	('folklore', 'Folklore'),
+	('historical-fiction', 'Historical fiction'),
+	('horror', 'Horror'),
+	('humor', 'Humor'),
+	('journalism', 'Journalism'),
+	('lab-report ', 'Lab report'),
+	('legend', 'Legend'),
+	('magical-realism', 'Magical realism'),
+	('manual', 'Owner\'s manual'),
+	('memoir', 'Memoir'),
+	('meta-fiction', 'Meta fiction'),
+	('mystery', 'Mystery'),
+	('mythology', 'Mythology'),
+	('mythopoeia', 'Mythopoeia'),
+	('narrative-nonfiction', 'Narrative nonfiction/personal narrative'),
+	('picture-book', 'Picture book'),
+	('realistic-fiction', 'Realistic fiction'),
+	('reference', 'Reference book'),
+	('science-fiction', 'Science fiction'),
+	('self-help', 'Self-help book'),
+	('short-story', 'Short story'),
+	('speech', 'Speech'),
+	('suspense', 'Suspense/thriller'),
+	('swashbuckler', 'Swashbuckler'),
+	('tall-tale', 'Tall tale'),
+	('textbook ', 'Textbook'),
+	('western', 'Western'),
 )
 
 #################
@@ -48,7 +83,7 @@ def save_user_profile(sender, instance, **kwargs):
 	instance.profile.save()
 
 ################
-# Stafd Models #
+# Staff Models #
 ################
 
 class New(models.Model):
@@ -66,9 +101,9 @@ class New(models.Model):
 	def absolute_url(self):
 		return reverse('new', args=[self.pk])
 
-#################
-# Default Class #
-#################
+##################
+# Default Models #
+##################
 
 class Author(models.Model):
 	name = models.CharField(max_length=100)

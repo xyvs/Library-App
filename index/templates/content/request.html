@@ -7,7 +7,7 @@
 	{% include 'snnipets/book_card.html' with book=request_obj manageRequests=True %}
 	<div class="col-9">
 		{% if not book %}
-		<a class="btn btn-sm btn-dark text-white float-right" href="{{ request_obj.add_book %}">Add to library</a>
+		<a class="btn btn-sm btn-dark text-white float-right" href="{{ request_obj.add_book }}">Add to library</a>
 		{% endif %}
 		<p class="text-muted">
 		{% if book %}

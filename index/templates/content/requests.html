@@ -2,6 +2,7 @@
 {% block title %}Manage requests{% endblock%}
 
 {% block body %}
+<h2 class="category-title">Manage Requests</h2>
 <div class="row">
 	{% for book in requests %}
 		{% include 'snnipets/book_card.html' with manageRequests=True %}

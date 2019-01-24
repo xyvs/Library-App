@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -11,6 +12,20 @@ from . import models, forms, functions
 import requests
 import xmltodict
 import datetime
+import random
+
+########################
+# Generate Random User #
+########################
+
+def createRandomUser(request):
+	username = random.randint(100000, 999999)
+	password = random.randint(1000, 9999)
+
+	user = User.objects.create_user(username, '', password)
+	messages.success(request, 'Library ID: {}, PIN: {}'.format(username,password))
+
+	return redirect('index')
 
 ###########
 # Content #
@@ -32,26 +47,32 @@ def browse(request):
 	nBooks = 8
 
 	lastest_books = models.Book.objects.all()[:nBooks]
-	adventure_books = models.Book.objects.filter(category="adventure")[:nBooks]
-	drama_books = models.Book.objects.filter(category="drama")[:nBooks]
-	crime_books = models.Book.objects.filter(category="crime")[:nBooks]
+	fiction_books = models.Book.objects.filter(category="science-fiction")[:nBooks]
 	fantasy_books = models.Book.objects.filter(category="fantasy")[:nBooks]
+	mystery_books = models.Book.objects.filter(category="mystery")[:nBooks]
+	crime_books = models.Book.objects.filter(category="crime")[:nBooks]
 
 	content = {
 		'lastest_books':lastest_books,
-		'adventure_books':adventure_books,
-		'drama_books':drama_books,
-		'crime_books':crime_books,
+		'fiction_books':fiction_books,
 		'fantasy_books':fantasy_books,
-		'lastest_books':lastest_books,
+		'mystery_books':mystery_books,	
+		'crime_books':crime_books,
 	}
 
 	return render(request, 'content/books.html', content)
 
 
-def lastBooks(request):
+def allBooks(request):
 	content = {
 		'book_set':models.Book.objects.all(),
+		'title':"All Books",
+	}
+	return render(request, 'content/category.html', content)
+
+def lastBooks(request):
+	content = {
+		'book_set':models.Book.objects.all()[:12],
 		'title':"Last Books",
 	}
 	return render(request, 'content/category.html', content)
@@ -148,9 +169,19 @@ def searchRequest(request):
 
 def book(request,book_id):
 	book = get_object_or_404(models.Book, pk=book_id)
+	
 	books_rented = request.user.profile.getRentedBooks() if request.user.is_authenticated else []
 	rented = book in books_rented
-	return render(request, 'content/book.html', {'book':book, 'rented':rented})
+
+	reviewForm = forms.ReviewForm(request.POST or None)
+	
+	if request.method == 'POST':
+
+		if reviewForm.has_changed() and reviewForm.is_valid():
+			instance = reviewForm.save()
+			return redirect('book', book_id)
+
+	return render(request, 'content/book.html', {'book':book, 'rented':rented, 'reviewForm':reviewForm})
 
 def ibook(request,ibook_id):
 	ibook = functions.getBook(ibook_id)
@@ -270,7 +301,9 @@ def addBook(request,ibook_id):
 
 	if not created:
 		messages.warning(request, 'This book was already added.')
-
+	else:
+		messages.success(request, 'Book added succesfully.')
+	
 	return redirect('book', book.pk)
 
 @login_required
