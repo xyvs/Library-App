@@ -5,13 +5,13 @@ A complete library app built with Django in Python 3.* and Boostrap 4.
 ## Features
 
 - Conection with the Goodreads API.
-- News Board.
+- News board.
 - Books Categories.
-- Books Rents.
-- Books Requests.
-- Books Likes and Bookmarks.
-- Books Reviews.
-- User Profile.
+- Books rents managment.
+- Books requests managment.
+- Books likes and bookmarks.
+- Books reviews.
+- User profiles.
 
 ## Installation
 
