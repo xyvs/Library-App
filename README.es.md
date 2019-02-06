@@ -1,6 +1,6 @@
 # Library App
 
-A complete library app built with Django in Python 3.* and Boostrap 4.
+Una completa aplicación de librería hecha con Django en Python 3.* y Boostrap 4.
 
 ## Caracteristicas
 
