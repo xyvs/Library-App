@@ -6,9 +6,9 @@ Una completa aplicación de librería hecha con Django en Python 3.* y Boostrap 
 
 - Conexión con la API de Goodreads.
 - Tablero de noticias.
-- Categoría para lo libros.
+- Categoría para los libros.
 - Manejo de rentas.
-- Solicitud de libros.
+- Solicitudes de libros.
 - Likes y marcadores de libros.
 - Reseñas de libros.
 - Perfiles de usuario.
