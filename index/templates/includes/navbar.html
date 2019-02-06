@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light container my-3">
+<nav class="navbar navbar-expand-lg navbar-light container mt-3">
   <a class="navbar-brand font-weight-bold" href="{% url 'index' %}">Library</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -47,7 +47,7 @@
           My account
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'account'%}">Profile</a>
+          <a class="dropdown-item" href="{% url 'account'%}">Profile <small class="text-muted">- {{ user }}</small> </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'accountRents' %}">Rents</a>
           <a class="dropdown-item" href="#">Reviews</a>
@@ -59,15 +59,15 @@
           <a class="dropdown-item" href="{% url 'manageRequests' %}">Manage Request</a>
           {% endif %}
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
         </div>
       </li>
       {% else%}
       <li class="nav-item">
-        <a class="nav-link" href="#">Login</a>
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Apply</a>
+        <a class="nav-link" href="{% url 'apply' %}">Apply</a>
       </li>
       {% endif %}
     </ul>

@@ -11,3 +11,6 @@ class ReviewForm(ModelForm):
 	class Meta:
 		model = models.Review
 		fields = ['title','review','liked']
+
+class ApplyForm(ModelForm):
+	pass

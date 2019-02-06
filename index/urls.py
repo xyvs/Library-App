@@ -6,6 +6,7 @@ urlpatterns = [
 	# Site
 	path('', views.index, name="index"),
 	path('about', views.about, name="about"), # Add
+	path('apply', views.apply, name="apply"), # Add
 
 	# Site Content
 	path('blog/', views.index, name="blog"), # Add

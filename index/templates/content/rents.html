@@ -2,7 +2,7 @@
 {% block title %}{{ profile }} Account{% endblock%}
 
 {% block body %}
-<h2 class="category-title">Manage Rents</h2>
+<h2 class="category-title mt-3">Manage Rents</h2>
 <div class="row">
 {% for rent in rents %}
 	{% include 'snnipets/book_card.html' with book=rent.book manageRents=True %}

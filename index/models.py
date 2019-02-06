@@ -13,9 +13,6 @@ from django.dispatch import receiver
 # Multiple Choice #
 ###################
 
-
-
-
 BOOK_CATEGORIES = (
 	('biography ', 'Biography'),
 	('classic', 'Classic'),
@@ -59,6 +56,13 @@ BOOK_CATEGORIES = (
 # Profile Class #
 #################
 
+class UserDetails(models.Model):
+	id_number = models.PositiveIntegerField()
+	address = models.CharField(max_length=100)
+	number = models.PositiveIntegerField()
+	locations = models.CharField(max_length=250)
+	cp = models.PositiveIntegerField()
+
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
 	bio = models.TextField(max_length=500, blank=True)
@@ -66,6 +70,8 @@ class Profile(models.Model):
 	
 	rents_available = models.PositiveIntegerField(default=2)
 	active = models.BooleanField(default=True)
+
+	user_details = models.ForeignKey(UserDetails, on_delete=models.CASCADE, blank=True, null=True)
 
 	def getRentedBooks(self):
 		return [x.book for x in self.rents.filter(active=True)]

@@ -11,10 +11,12 @@
 {% block body %}
 <div class="container pt-3">
 	
+	<div style="max-width: 500px; margin: 0 auto;">
+
 	{% if title %}
-		<h2 class="category-title">Search for: {{ title }}</h2>
+		<h2 class="category-title">Result for: {{ title }}</h2>
 	{% else %}
-		<h2 class="category-title">Search for a book for request</h2>
+		<h2 class="category-title">Search for a book to request</h2>
 	{% endif %}
 
 	<form class="mb-4" action="#" method="get">
@@ -26,9 +28,11 @@
 		</div>
 	</form>
 
+	</div>
+
 	{% if title %}
 		{% if books|length > 0 %}
-			<div class="row">
+			<div class="row pt-4">
 
 				{% for book in books %}
 					{% include 'snnipets/book_card.html' with searchMode=True %}

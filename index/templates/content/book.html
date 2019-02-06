@@ -54,10 +54,12 @@
 		</div>
 		
 
+	{% if user.is_authenticathed %}
 	<form action="#" method="post">
 		{{ reviewForm|crispy }}
 		<a class="btn btn-sm btn-primary text-white" type="submit">Send</a>
 	</form>
+	{% endif %}
 
 	</div>
 	{% include 'snnipets/book_card_deck.html' with book_set=book.author.all.0.book_set.all|slice:":4" title="Books by this author" %}

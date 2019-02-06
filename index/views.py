@@ -38,6 +38,9 @@ def index(request):
 def about(request):
 	return render(request, 'content/about.html', {})
 
+def apply(request):
+	return render(request, 'content/apply.html', {})
+
 ################
 # Browse Views #
 ################
@@ -341,7 +344,7 @@ def rentBook(request,book_id):
 				book.quantity -= 1
 				book.save()
 		else:
-			messages.warning(request, 'The rent of this book isn\'t available for now.')
+			messages.warning(request, 'The rent of this book isn\'t available now.')
 	
 	else:
 		messages.warning(request, 'You cannot rent more that {} books.'.format(rents_available))
