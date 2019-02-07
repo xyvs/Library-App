@@ -1,6 +1,0 @@
-{% extends 'base/base.html'%}
-{% block title %}Books from {{ serie }}{% endblock%}
-
-{% block body %}
-	{% include 'snnipets/book_card_deck.html' with book_set=serie.books.all %}
-{% endblock%}
