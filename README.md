@@ -17,11 +17,11 @@ A complete library app built with Django in Python 3.* and Boostrap 4.
 
 Clone the repository
 
-    git clone https://github.com/xyvs/Library-App
+    git clone https://github.com/xyvs/library-app
 
 Enter the app folder
 
-	cd Library-App/
+	cd library-app/
 
 Access the virtual enviroment
 
