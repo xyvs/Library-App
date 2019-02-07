@@ -31,6 +31,10 @@ Instala los requerimientos
 
     pipenv install
 
+Crear superusuario
+
+    python manage.py createsuperuser
+
 Ejecuta la aplicación
 
     python manage.py runserver

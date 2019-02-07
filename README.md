@@ -31,6 +31,10 @@ Install the requeriments
 
     pipenv install
 
+Create Super User
+
+    python manage.py createsuperuser
+
 Run the app
 
     python manage.py runserver
