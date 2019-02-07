@@ -1,0 +1,13 @@
+{% extends 'base/base.html'%}
+{% block title %}Browse books - Library App{% endblock%}
+
+{% block body %}
+{% include 'snnipets/book_card_deck.html' with book_set=fiction_books title="Popular Books" %}
+{% include 'snnipets/book_card_deck.html' with book_set=lastest_books title="Last Books" %}
+{% include 'snnipets/book_card_deck.html' with book_set=fiction_books title="Science fiction Books" %}
+{% include 'snnipets/book_card_deck.html' with book_set=fantasy_books title="Fantasy Books" %}
+{% include 'snnipets/book_card_deck.html' with book_set=mystery_books title="Mystery Books" %}
+{% include 'snnipets/book_card_deck.html' with book_set=crime_books title="Crime Books" %}
+
+
+{% endblock%}

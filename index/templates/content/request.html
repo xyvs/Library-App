@@ -1,0 +1,25 @@
+{% extends 'base/base.html'%}
+{% block title %}Browse books - Library App{% endblock%}
+
+{% block body %}
+
+<div class="row mt-3">
+	{% include 'snnipets/book_card.html' with book=request_obj manageRequests=True %}
+	<div class="col-9">
+		{% if not book %}
+		<a class="btn btn-sm btn-dark text-white float-right" href="{{ request_obj.add_book }}">Add to library</a>
+		{% endif %}
+		<p class="text-muted">
+		{% if book %}
+			<span class="badge badge-secondary">This book it's already part of the library.</span><br><br>
+		{% endif %}
+		<b>Goodreads ID:</b> {{ request_obj.goodreads_id }}<br>
+		<b>Requested by:</b> {{ request_obj.requested_by }}<br>
+		<b>Date Requested:</b> {{ request_obj.date_added }}<br>
+		</p>
+	</div>
+	<div class="col-12 mt-3">
+		<p class="text-muted">{{ request_obj.description|safe }}</p>
+	</div>
+</div>
+{% endblock%}

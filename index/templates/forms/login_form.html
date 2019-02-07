@@ -1,0 +1,23 @@
+<div class="login-div">
+	<p class="font-weight-bold login-title">Access</p>
+	<form action="{% url 'login' %}" method="post">
+		{% csrf_token %}
+		<div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="user-id"><i class="text-muted" data-feather="user"></i></span>
+				</div>
+				<input type="text" name="username" class="form-control" placeholder="Library ID" aria-label="Library ID" aria-describedby="user-id">
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="pin"><i class="text-muted" data-feather="lock"></i></span>
+				</div>
+				<input type="password" name="password" class="form-control" placeholder="PIN" aria-label="PIN" aria-describedby="pin">
+			</div>
+
+		</div>
+		<button type="submit" class="btn btn-sm btn-primary">Submit</button>
+	</form>
+</div>

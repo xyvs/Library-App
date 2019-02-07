@@ -1,0 +1,10 @@
+{% extends 'base/base.html'%}
+{% block title %}Browse authors - Library App{% endblock%}
+
+{% block body %}
+<div class="row">
+	{% for author in authors %}
+		{% include 'snnipets/author_card.html' %}
+	{% endfor %}
+</div>
+{% endblock%}

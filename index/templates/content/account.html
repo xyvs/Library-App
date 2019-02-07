@@ -1,0 +1,17 @@
+{% extends 'base/base.html'%}
+{% block title %}{{ profile }} Account{% endblock%}
+
+{% block body %}
+{{ profile }}
+{% if user.profile.rents.all %}
+<div class="py-3">
+	<h2 class="category-title">Last Rents</h2>
+	<div class="row">
+		{% for rent in user.profile.rents.all|slice:":8" %}
+			{% include 'snnipets/book_card.html' with book=rent.book %}
+		{% endfor %}
+	</div>
+</div>
+<hr> 
+{% endif %}
+{% endblock%}

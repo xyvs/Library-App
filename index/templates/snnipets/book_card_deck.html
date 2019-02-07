@@ -1,0 +1,20 @@
+<div class="py-3">
+
+{% if link %}
+<h2 class="category-title">{{ title }}</h2>
+{% else %}
+<a href="{{ link }}"><h2 class="category-title">{{ title }}</h2></a>
+{% endif %}
+
+{% if book_set %}
+<div class="row">
+	{% for book in book_set %}
+		{% include 'snnipets/book_card.html' %}
+	{% endfor %}
+</div>
+{% else %}
+<div class="py-3">
+	<p class="text-muted">No books found.</p>
+</div>
+{% endif %}
+</div>
