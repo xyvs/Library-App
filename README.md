@@ -33,7 +33,7 @@ Install the requeriments
 
 Run the app
 
-    python manage.py runservers
+    python manage.py runserver
 
 ## Usage
 
