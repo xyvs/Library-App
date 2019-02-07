@@ -29,11 +29,11 @@ Access the virtual enviroment
 
 Install the requeriments
 
-    pip install -r requeriments.txt
+    pipenv install -r requeriments.txt
 
 Run the app
 
-    python3 manage.py runservers
+    python manage.py runservers
 
 ## Usage
 
