@@ -15,9 +15,16 @@ A complete library app built with Django in Python 3.* and Boostrap 4.
 
 ## Installation
 
-    git clone https://github.com/xyvs/Library-App && cd Library-App/
+Clone the repository
+    git clone https://github.com/xyvs/Library-App
+Enter the app folder
+	cd Library-App/
+Access the virtual enviroment
+    pipienv shell
+Install the requeriments
     pip install -r requeriments.txt
-    python3 manage.py runserver
+Run the app
+    python3 manage.py runservers
 
 ## Usage
 

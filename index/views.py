@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib import messages
+from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
@@ -30,6 +31,13 @@ def createRandomUser(request):
 ###########
 # Content #
 ###########
+
+def test(request):
+	username = request.GET.get('username', None)
+	data = {
+		'is_taken': User.objects.filter(username__iexact=username).exists()
+	}
+	return JsonResponse(data)
 
 def index(request):
 	news = models.New.objects.all()[:5]
