@@ -1,0 +1,19 @@
+{% extends 'base/base.html'%}
+{% block title %}{{ profile }} Rents{% endblock%}
+
+{% block body %}
+{% if user.profile.rents.all %}
+<div class="py-3">
+	<h2 class="category-title">My Rents</h2>
+	<div class="row">
+		{% for rent in rents %}
+			{% include 'snnipets/book_card.html' with book=rent.book %}
+		{% endfor %}
+	</div>
+</div>
+<hr> 
+{% else %}
+	<h2 class="category-title mb-3">My Rents</h2>
+	<p class="text-muted">No items available.</p>
+{% endif %}
+{% endblock%}

@@ -1,0 +1,15 @@
+{% extends 'base/base.html'%}
+{% load crispy_forms_tags %}
+{% block title %}Login{% endblock%}
+
+{% block body %}
+{% if not user.is_authenticated %}
+<div style="max-width: 350px; margin: 0 auto;" class="pt-4">
+{% include "forms/login_form.html" %}
+</div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+  You're already logged in.
+</div>
+{% endif %}
+{% endblock%}
