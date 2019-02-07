@@ -50,7 +50,7 @@
           <a class="dropdown-item" href="{% url 'account'%}">Profile <small class="text-muted">- {{ user }}</small> </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'accountRents' %}">Rents</a>
-          <a class="dropdown-item" href="#">Reviews</a>
+          <a class="dropdown-item" href="{% url 'accountReviews' %}">Reviews</a>
           <a class="dropdown-item" href="{% url 'accountBookmarks' %}">Bookmarks</a>
           <a class="dropdown-item" href="{% url 'accountLikes' %}">Likes</a>
           {% if user.is_staff %}

@@ -242,6 +242,11 @@ def accountRents(request):
 	rents = request.user.profile.rents.all()
 	return render(request, 'content/accountRents.html', {'rents':rents})
 
+
+@login_required
+def accountReviews(request):
+	return render(request, 'content/accountReviews.html')
+
 @login_required
 def accountBookmarks(request):
 	books = request.user.bookmarks.all()

@@ -46,7 +46,7 @@ urlpatterns = [
 	# Account
 	path('account/', views.account, name="account"),
 	path('account/rents/', views.accountRents, name="accountRents"),
-	path('account/reviews/', views.account, name="myReviews"),
+	path('account/reviews/', views.accountReviews, name="accountReviews"),
 	path('account/bookmarks/', views.accountBookmarks, name="accountBookmarks"),
 	path('account/likes/', views.accountLikes, name="accountLikes"),
 	path('account/settings/', views.account, name="mySettings"),
