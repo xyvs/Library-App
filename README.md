@@ -25,7 +25,7 @@ Enter the app folder
 
 Access the virtual enviroment
 
-    pipienv shell
+    pipenv shell
 
 Install the requeriments
 
