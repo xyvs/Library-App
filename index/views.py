@@ -110,17 +110,17 @@ def search(request):
 	category = request.GET.get('c')
 
 	if category == 'title':
-		books = models.Book.objects.filter(name__icontains=search).order_by('name')
+		books = models.Book.objects.filter(name__icontains=search).order_by('name').distinct()
 	elif category == 'isbn':
-		books = models.Book.objects.filter(isbn__icontains=search).order_by('name')
+		books = models.Book.objects.filter(isbn__icontains=search).order_by('name').distinct()
 	elif category == 'author':
 		authors = models.Author.objects.filter(name__icontains=search)
-		books = models.Book.objects.filter(author__in=authors).order_by('name')
+		books = models.Book.objects.filter(author__in=authors).order_by('name').distinct()
 	elif category == 'description':
-		books = models.Book.objects.filter(description__icontains=search).order_by('name')
+		books = models.Book.objects.filter(description__icontains=search).order_by('name').distinct()
 	elif category == 'series':
 		series = models.Serie.objects.filter(name__icontains=search)
-		books = models.Book.objects.filter(series__in=series).order_by('name')
+		books = models.Book.objects.filter(series__in=series).order_by('name').distinct()
 
 	return render(request, 'content/searchBooks.html', {'books':books})
 
