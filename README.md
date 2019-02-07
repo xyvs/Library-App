@@ -29,7 +29,7 @@ Access the virtual enviroment
 
 Install the requeriments
 
-    pipenv install -r requeriments.txt
+    pipenv install
 
 Run the app
 

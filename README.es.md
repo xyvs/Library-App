@@ -29,7 +29,7 @@ Inicia el entorno virtual
 
 Instala los requerimientos
 
-    pipenv install -r requeriments.txt
+    pipenv install
 
 Ejecuta la aplicación
 
