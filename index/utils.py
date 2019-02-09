@@ -4,7 +4,7 @@ import xmltodict
 
 from . import models
 
-def getBook(ibook_id):
+def get_book(ibook_id):
 	requestURL = 'https://www.goodreads.com/book/show/{}.xml?key=elWTI430BrTmVA1tCbA'.format(ibook_id)
 	response = requests.get(url=requestURL)
 
@@ -13,9 +13,9 @@ def getBook(ibook_id):
 
 	return ibook
 
-def addBookToLibrary(request,ibook_id):
+def add_book_to_library(request,ibook_id):
 
-	ibook = getBook(ibook_id)
+	ibook = get_book(ibook_id)
 
 	book,created = models.Book.objects.get_or_create(
 		name=ibook['title'],
@@ -58,9 +58,9 @@ def addBookToLibrary(request,ibook_id):
 
 	return [book,created]
 
-def requestBookToLibrary(request,ibook_id):
+def request_book_to_library(request,ibook_id):
 
-	ibook = getBook(ibook_id)
+	ibook = get_book(ibook_id)
 
 	request,created = models.Request.objects.get_or_create(
 		name=ibook['title'],
