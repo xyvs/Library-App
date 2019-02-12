@@ -41,9 +41,9 @@ Ejecuta la aplicación
 
 ## Uso
 
-Visitar http://localhost:8000/ para utilizar el sistema como usuario no registrado.
+Visitar localhost:8000 para utilizar el sistema como usuario no registrado.
 
-Para utilizar el sistema como administrador ingresar como admin:admin en http://localhost:8000/accounts/login/.
+Para utilizar el sistema como administrador ingresar las credenciales que ingresaste anteriormente en localhost:8000/accounts/login/.
 
 ## Capturas
 
