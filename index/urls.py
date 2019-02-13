@@ -28,10 +28,8 @@ urlpatterns = [
 	path('book/<int:book_id>/', views.Book, name="book"),
 	path('book/<int:book_id>/edit/', views.EditBook, name="editBook"),
 	path('book/<int:book_id>/rent/', views.RentBook, name="rentBook"),
-	path('book/<int:book_id>/like/', views.LikeBook, name="likeBook"),
-	path('book/<int:book_id>/dislike/', views.DislikeBook, name="dislikeBook"),
-	path('book/<int:book_id>/bookmark/', views.BookmarkBook, name="bookmarkBook"),
-	path('book/<int:book_id>/unbookmark/', views.UnbookmarkBook, name="unbookmarkBook"),
+	path('book/<int:book_id>/like/', views.LikeToggle, name="LikeToggle"),
+	path('book/<int:book_id>/bookmark/', views.BookmarkToggle, name="BookmarkToggle"),
 
 	path('ibook/<int:ibook_id>/', views.Ibook, name="ibook"),
 	path('ibook/<int:ibook_id>/add/', views.AddBook, name="addBook"),

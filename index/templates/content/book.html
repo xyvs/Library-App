@@ -15,17 +15,21 @@
 						</a>
 					{% endif %}
 
-					{% if request.user in book.bookmarks.all %}
-					<a href="{% url 'unbookmarkBook' book.pk %}"><span class="mr-2" style="color: black;"><span data-feather="bookmark"></span> Unbookmark</span></a>
-					{% else %}
-					<a href="{% url 'bookmarkBook' book.pk %}"><span class="mr-2" style="color: orange;"><span data-feather="bookmark"></span> Bookmark</span></a>
-					{% endif %}
+					<a href="{% url 'BookmarkToggle' book.pk %}">
+						{% if request.user in book.bookmarks.all %}
+							<span class="mr-2" style="color: black;"><span data-feather="bookmark"></span> Unbookmark</span>
+						{% else %}
+							<span class="mr-2" style="color: orange;"><span data-feather="bookmark"></span> Bookmark</span>
+						{% endif %}
+					</a>
 
-					{% if request.user in book.likes.all %}
-					<a href="{% url 'dislikeBook' book.pk %}"><span style="color: black;"><span data-feather="heart"></span> Unlike</span></a>
-					{% else %}
-					<a href="{% url 'likeBook' book.pk %}"><span style="color: red;"><span data-feather="heart"></span> Like</span></a>
-					{% endif %}
+					<a href="{% url 'LikeToggle' book.pk %}">
+						{% if request.user in book.likes.all %}
+							<span style="color: black;"><span data-feather="heart"></span> Unlike</span>
+						{% else %}
+							<span style="color: red;"><span data-feather="heart"></span> Like</span>
+						{% endif %}
+					</a>
 
 					
 			</div>

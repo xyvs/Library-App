@@ -388,7 +388,7 @@ def ReturnRent(request,rent_id):
 
 
 @login_required
-def LikeBook(request,book_id):
+def LikeToggle(request,book_id):
 	
 	book = get_object_or_404(models.Book, pk=book_id)
 
@@ -396,25 +396,13 @@ def LikeBook(request,book_id):
 		book.likes.add(request.user)
 		messages.success(request, 'You liked this book.')
 	else:
-		messages.warning(request, 'You already liked this book.')
-
-	return redirect('book', book_id)
-
-@login_required
-def DislikeBook(request,book_id):
-	
-	book = get_object_or_404(models.Book, pk=book_id)
-	
-	if request.user in book.likes.all():
 		book.likes.remove(request.user)
 		messages.warning(request, 'You unliked this book.')
-	else:
-		messages.warning(request, 'You already unliked this book.')
 
 	return redirect('book', book_id)
 
 @login_required
-def BookmarkBook(request,book_id):
+def BookmarkToggle(request,book_id):
 	
 	book = get_object_or_404(models.Book, pk=book_id)
 
@@ -422,19 +410,7 @@ def BookmarkBook(request,book_id):
 		book.bookmarks.add(request.user)
 		messages.success(request, 'You bookmarked this book.')
 	else:
-		messages.warning(request, 'You already bookmarked this book.')
-
-	return redirect('book', book_id)
-
-@login_required
-def UnbookmarkBook(request,book_id):
-	
-	book = get_object_or_404(models.Book, pk=book_id)
-	
-	if request.user in book.bookmarks.all():
 		book.bookmarks.remove(request.user)
 		messages.warning(request, 'You unbookmarked this book.')
-	else:
-		messages.warning(request, 'You already unbookmarked this book.')
 
 	return redirect('book', book_id)
