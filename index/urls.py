@@ -7,7 +7,6 @@ urlpatterns = [
 	path('', views.Index, name="index"),
 	path('about', views.About.as_view(), name="about"), # Add
 	path('apply', views.Apply.as_view(), name="apply"), # Add
-	path('test', views.Test, name='test'),	
 
 	# Site Content
 	path('blog/', views.Index, name="blog"), # Add
