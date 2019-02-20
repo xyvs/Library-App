@@ -1,8 +1,44 @@
 import requests
 import xmltodict
 
-
 from . import models
+
+def search_books(search,page):
+	page_int = int(page) if page else 1
+
+	requestURL = 'https://www.goodreads.com/search/index.xml?key=elWTI430BrTmVA1tCbA&q={}&page={}'.format(search,page)
+	response = requests.get(url=requestURL)
+	reponse_xml = xmltodict.parse(response.text)
+
+	total_items = int(reponse_xml['GoodreadsResponse']['search']['total-results'])
+
+	if total_items > 1:
+
+		total_pages = round(total_items/10)
+		
+		books_list = reponse_xml['GoodreadsResponse']['search']['results']['work']
+		
+		books = [{
+			'id':book['best_book']['id']['#text'],
+			'name':book['best_book']['title'],
+			'author':book['best_book']['author']['name'],
+			'image':book['best_book']['image_url'],
+		} for book in books_list ]
+
+		pagination = {
+			'total_pages':total_pages,
+			'current_page':page_int,
+			'previous':page_int-1,
+			'next':page_int+1,
+			'has_next':True if page_int < total_pages else False,
+			'has_previous':True if page_int > 1 else False,
+		}
+
+	else:
+		books = []
+		pagination = []
+
+	return {'search':search, 'books':books, 'pagination':pagination}
 
 def get_book(ibook_id):
 	requestURL = 'https://www.goodreads.com/book/show/{}.xml?key=elWTI430BrTmVA1tCbA'.format(ibook_id)

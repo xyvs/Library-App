@@ -1,8 +1,8 @@
 {% extends 'base/base.html'%}
 {% block title %}
 
-{% if title %}
-		Search for: {{ title }}
+{% if search %}
+		Search for: {{ search }}
 	{% else %}
 		Search for a book
 {% endif %}
@@ -13,8 +13,8 @@
 	
 	<div style="max-width: 500px; margin: 0 auto;">
 
-	{% if title %}
-		<h2 class="category-title">Result for: {{ title }}</h2>
+	{% if search %}
+		<h2 class="category-title">Result for: {{ search }}</h2>
 	{% else %}
 		<h2 class="category-title">Search for a book to request</h2>
 	{% endif %}
@@ -30,7 +30,7 @@
 
 	</div>
 
-	{% if title %}
+	{% if search %}
 		{% if books|length > 0 %}
 			<div class="row pt-4">
 
@@ -42,7 +42,7 @@
 				<ul class="pagination pt-4 justify-content-center">
 					{% if pagination.has_previous %}
 						<li class="page-item">
-							<a class="page-link" href="?q={{ title }}&page={{ pagination.previous }}"">Previous</a>
+							<a class="page-link" href="?q={{ search }}&page={{ pagination.previous }}"">Previous</a>
 						</li>
 					{% endif %}
 					
@@ -51,7 +51,7 @@
 					</li>
 					{% if pagination.has_next %}
 						<li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
-						<a class="page-link" href="?q={{ title }}&page={{ pagination.next }}">Next</a>
+						<a class="page-link" href="?q={{ search }}&page={{ pagination.next }}">Next</a>
 					</li>
 				{% endif %}
 			</ul>

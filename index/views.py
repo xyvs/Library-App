@@ -57,13 +57,13 @@ class Apply(TemplateView):
 
 def Browse(request):
 
-	nBooks = 8
+	number_of_books = 8
 
-	lastest_books = models.Book.objects.all()[:nBooks]
-	fiction_books = models.Book.objects.filter(category="science-fiction")[:nBooks]
-	fantasy_books = models.Book.objects.filter(category="fantasy")[:nBooks]
-	mystery_books = models.Book.objects.filter(category="mystery")[:nBooks]
-	crime_books = models.Book.objects.filter(category="crime")[:nBooks]
+	lastest_books = models.Book.objects.all()[:number_of_books]
+	fiction_books = models.Book.objects.filter(category="science-fiction")[:number_of_books]
+	fantasy_books = models.Book.objects.filter(category="fantasy")[:number_of_books]
+	mystery_books = models.Book.objects.filter(category="mystery")[:number_of_books]
+	crime_books = models.Book.objects.filter(category="crime")[:number_of_books]
 
 	content = {
 		'lastest_books':lastest_books,
@@ -130,49 +130,13 @@ def Search(request):
 def SearchRequest(request):
 
 	search = request.GET.get('q')
+	page = request.GET.get('page')
 
 	if search:
-
-		page = request.GET.get('page')
-		page_int = int(page) if page else 1
-
-		requestURL = 'https://www.goodreads.com/search/index.xml?key=elWTI430BrTmVA1tCbA&q={}&page={}'.format(search,page)
-		response = requests.get(url=requestURL)
-
-		reponse_xml = xmltodict.parse(response.text)
-
-		total_items = int(reponse_xml['GoodreadsResponse']['search']['total-results'])
+		content = utils.search_books(search,page)
 
 	else:
-		total_items = 0
-
-	if total_items > 1:
-
-		total_pages = round(total_items/10)
-		
-		books_list = reponse_xml['GoodreadsResponse']['search']['results']['work']
-		
-		books = [{
-			'id':x['best_book']['id']['#text'],
-			'name':x['best_book']['title'],
-			'author':x['best_book']['author']['name'],
-			'image':x['best_book']['image_url'],
-		} for x in books_list ]
-
-		pagination = {
-			'total_pages':total_pages,
-			'current_page':page_int,
-			'previous':page_int-1,
-			'next':page_int+1,
-			'has_next':True if page_int < total_pages else False,
-			'has_previous':True if page_int > 1 else False,
-		}
-
-	else:
-		books = []
-		pagination = []
-
-	content = {'title':search, 'books':books, 'pagination':pagination}
+		content = {'search':search, 'books':[], 'pagination':[]}
 
 	return render(request, 'content/searchRequests.html', content)
 
@@ -243,7 +207,6 @@ def Account(request):
 def AccountRents(request):
 	rents = request.user.profile.rents.all()
 	return render(request, 'content/accountRents.html', {'rents':rents})
-
 
 @login_required
 def AccountReviews(request):

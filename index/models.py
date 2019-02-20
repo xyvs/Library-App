@@ -191,6 +191,7 @@ class Set(models.Model):
 
 class Serie(Set):
 	books = models.ManyToManyField(Book, related_name="series")
+
 	def absolute_url(self):
 		return reverse('serie', args=[self.pk])
 
