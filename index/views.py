@@ -34,13 +34,6 @@ def CreateRandomUser(request):
 # Content #
 ###########
 
-def Test(request):
-	username = request.GET.get('username', None)
-	data = {
-		'is_taken': User.objects.filter(username__iexact=username).exists()
-	}
-	return JsonResponse(data)
-
 def Index(request):
 	news = models.New.objects.all()[:5]
 	return render(request, 'content/index.html', {'news':news})
