@@ -24,21 +24,21 @@ urlpatterns = [
 	path('category/<slug:category>/', views.Category, name="category"),
 
 	# Content
-	path('book/<int:book_id>/', views.Book, name="book"),
-	path('book/<int:book_id>/edit/', views.EditBook, name="editBook"),
-	path('book/<int:book_id>/rent/', views.RentBook, name="rentBook"),
-	path('book/<int:book_id>/like/', views.LikeToggle, name="LikeToggle"),
-	path('book/<int:book_id>/bookmark/', views.BookmarkToggle, name="BookmarkToggle"),
+	path('books/<int:book_id>/', views.Book, name="book"),
+	path('books/<int:book_id>/edit/', views.EditBook, name="editBook"),
+	path('books/<int:book_id>/rent/', views.RentBook, name="rentBook"),
+	path('books/<int:book_id>/like/', views.LikeToggle, name="LikeToggle"),
+	path('books/<int:book_id>/bookmark/', views.BookmarkToggle, name="BookmarkToggle"),
 
-	path('ibook/<int:ibook_id>/', views.Ibook, name="ibook"),
-	path('ibook/<int:ibook_id>/add/', views.AddBook, name="addBook"),
-	path('ibook/<int:ibook_id>/request/', views.RequestBook, name="requestBook"),
+	path('ibooks/<int:ibook_id>/', views.Ibook, name="ibook"),
+	path('ibooks/<int:ibook_id>/add/', views.AddBook, name="addBook"),
+	path('ibooks/<int:ibook_id>/request/', views.RequestBook, name="requestBook"),
 
 	path('authors/', views.Authors, name="authors"),
-	path('author/<int:author_id>/', views.Author, name="author"),
+	path('authors/<int:author_id>/', views.Author, name="author"),
 
 	path('series/', views.Series, name="series"),
-	path('serie/<int:serie_id>/', views.Serie, name="serie"),
+	path('series/<int:serie_id>/', views.Serie, name="serie"),
 
 	# Account
 	path('account/', views.Account, name="account"),
@@ -50,11 +50,11 @@ urlpatterns = [
 
 	# Admin
 	path('rents/', views.Rents, name="rents"),
-	path('rent/<int:rent_id>/', views.Rent, name="rent"),
-	path('rent/<int:rent_id>/return/', views.ReturnRent, name="returnRent"),
+	path('rents/<int:rent_id>/', views.Rent, name="rent"),
+	path('rents/<int:rent_id>/return/', views.ReturnRent, name="returnRent"),
 
 	path('requests/', views.ManageRequests, name="manageRequests"),
-	path('request/<int:request_id>/', views.Request, name="request"),
+	path('requests/<int:request_id>/', views.Request, name="request"),
 
 	path('create/user/', views.CreateRandomUser, name="createRandomUser"),
 ]
