@@ -105,7 +105,7 @@ class New(models.Model):
 		return self.title
 
 	def absolute_url(self):
-		return reverse('new', args=[self.pk])
+		return reverse('new_view', args=[self.pk])
 
 ##################
 # Default Models #
@@ -120,7 +120,7 @@ class Author(models.Model):
 		return self.name
 
 	def absolute_url(self):
-		return reverse('author', args=[self.pk])
+		return reverse('author_view', args=[self.pk])
 
 class BookBase(models.Model):
 	name = models.CharField(max_length=100)
@@ -193,7 +193,7 @@ class Serie(Set):
 	books = models.ManyToManyField(Book, related_name="series")
 
 	def absolute_url(self):
-		return reverse('serie', args=[self.pk])
+		return reverse('serie_view', args=[self.pk])
 
 class Collection(Set):
 	books = models.ManyToManyField(Book, related_name="collections")

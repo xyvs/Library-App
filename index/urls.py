@@ -10,7 +10,7 @@ urlpatterns = [
 
 	# Site Content
 	path('blog/', views.Index, name="blog"), # Add
-	path('blog/<int:new_id>/', views.New, name="new"),
+	path('blog/<int:pk>/', views.NewView.as_view(), name='new_view'),
 
 	# Browse Views
 	path('browse/', views.Browse, name="browse"),
@@ -35,10 +35,10 @@ urlpatterns = [
 	path('ibooks/<int:ibook_id>/request/', views.RequestBook, name="requestBook"),
 
 	path('authors/', views.Authors, name="authors"),
-	path('authors/<int:author_id>/', views.Author, name="author"),
+	path('authors/<int:pk>/', views.AuthorView.as_view(), name='author_view'),
 
 	path('series/', views.Series, name="series"),
-	path('series/<int:serie_id>/', views.Serie, name="serie"),
+	path('series/<int:pk>/', views.SerieView.as_view(), name='serie_view'),
 
 	# Account
 	path('account/', views.Account, name="account"),

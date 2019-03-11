@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
 from django.views.decorators.http import require_POST
 
 from . import models, forms, utils
@@ -167,30 +167,18 @@ def Ibook(request,ibook_id):
 
 	return render(request, 'content/ibook.html', content)
 
-def New(request,new_id):
-	new = get_object_or_404(models.New, pk=new_id)
-	return render(request, 'content/new.html', {'new':new })
+class NewView(DetailView):
+	model = models.New
 
-def Author(request,author_id):
-	author = get_object_or_404(models.Author, pk=author_id)
-	content = {
-		'author':author,
-		'title':"Books by {}".format(author)
-	}
-	return render(request, 'content/author.html', content)
+class AuthorView(DetailView):
+	model = models.Author
 
-def Serie(request,serie_id):
-	serie = get_object_or_404(models.Serie, pk=serie_id)
-	content = {
-		'serie':serie,
-		'title':"Books from {}".format(serie)
-	}
-	return render(request, 'content/serie.html', content)
+class SerieView(DetailView):
+	model = models.Serie
 
 ##################
 # Manage Account #
 ##################
-
 @login_required
 def Account(request):
 	profile = request.user.profile

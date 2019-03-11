@@ -2,5 +2,5 @@
 {% block title %}Books by {{ author }}{% endblock%}
 
 {% block body %}
-{% include 'snnipets/book_card_deck.html' with book_set=author.book_set.all %}
+{% include 'snnipets/book_card_deck.html' with book_set=author.book_set.all title=author %}
 {% endblock%}
