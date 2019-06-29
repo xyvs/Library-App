@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from index import models
 
+
 class BookSerializer(serializers.HyperlinkedModelSerializer):
 	author = serializers.StringRelatedField(many=True)
 	likes = serializers.StringRelatedField(many=True)

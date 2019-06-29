@@ -1,27 +1,24 @@
-from django.shortcuts import render, redirect, get_object_or_404
-
-from django.contrib import messages
-from django.http import JsonResponse
-
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
-
-from django.views.generic import TemplateView, ListView, DetailView
-from django.views.decorators.http import require_POST
-
-from . import models, forms, utils
+import datetime
+import random
 
 import requests
 import xmltodict
-import datetime
-import random
+from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
+from django.views.generic import DetailView, ListView, TemplateView
+
+from . import forms, models, utils
 
 ########################
 # Generate Random User #
 ########################
 
-def CreateRandomUser(request):
+def create_random_user(request):
 	username = random.randint(100000, 999999)
 	password = random.randint(1000, 9999)
 
@@ -34,7 +31,7 @@ def CreateRandomUser(request):
 # Content #
 ###########
 
-def Index(request):
+def index(request):
 	news = models.New.objects.all()[:5]
 	return render(request, 'content/index.html', {'news':news})
 
@@ -48,7 +45,7 @@ class Apply(TemplateView):
 # Browse Views #
 ################
 
-def Browse(request):
+def browse(request):
 
 	number_of_books = 8
 
@@ -69,21 +66,21 @@ def Browse(request):
 	return render(request, 'content/books.html', content)
 
 
-def AllBooks(request):
+def all_books(request):
 	content = {
 		'book_set':models.Book.objects.all(),
 		'title':"All Books",
 	}
 	return render(request, 'content/category.html', content)
 
-def LastBooks(request):
+def last_books(request):
 	content = {
 		'book_set':models.Book.objects.all()[:12],
 		'title':"Last Books",
 	}
 	return render(request, 'content/category.html', content)
 
-def Category(request,category):
+def category(request,category):
 	books = models.Book.objects.filter(category=category)
 	content = {
 		'book_set':books,
@@ -91,15 +88,15 @@ def Category(request,category):
 	}
 	return render(request, 'content/category.html', content)
 
-def Authors(request):
+def authors(request):
 	authors = models.Author.objects.all()[:10]
 	return render(request, 'content/authors.html', {'authors':authors})
 
-def Series(request):
+def series(request):
 	series = models.Serie.objects.all()[:10]
 	return render(request, 'content/series.html', {'series':series})
 
-def Search(request):
+def search(request):
 
 	search = request.GET.get('q')
 	category = request.GET.get('c')
@@ -120,7 +117,7 @@ def Search(request):
 	return render(request, 'content/searchBooks.html', {'books':books})
 
 @login_required
-def SearchRequest(request):
+def search_request(request):
 
 	search = request.GET.get('q')
 	page = request.GET.get('page')
@@ -137,7 +134,7 @@ def SearchRequest(request):
 # Single Views #
 ################
 
-def Book(request,book_id):
+def book(request,book_id):
 	book = get_object_or_404(models.Book, pk=book_id)
 	
 	books_rented = request.user.profile.getRentedBooks() if request.user.is_authenticated else []
@@ -153,7 +150,7 @@ def Book(request,book_id):
 
 	return render(request, 'content/book.html', {'book':book, 'rented':rented, 'reviewForm':reviewForm})
 
-def Ibook(request,ibook_id):
+def ibook(request,ibook_id):
 	ibook = utils.get_book(ibook_id)
 	book = models.Book.objects.filter(goodreads_id=ibook_id)
 	request_obj = models.Request.objects.filter(goodreads_id=ibook_id)
@@ -180,26 +177,26 @@ class SerieView(DetailView):
 # Manage Account #
 ##################
 @login_required
-def Account(request):
+def account(request):
 	profile = request.user.profile
 	return render(request, 'content/account.html', {'profile':profile})
 
 @login_required
-def AccountRents(request):
+def account_rents(request):
 	rents = request.user.profile.rents.all()
 	return render(request, 'content/accountRents.html', {'rents':rents})
 
 @login_required
-def AccountReviews(request):
+def account_reviews(request):
 	return render(request, 'content/accountReviews.html')
 
 @login_required
-def AccountBookmarks(request):
+def account_bookmarks(request):
 	books = request.user.bookmarks.all()
 	return render(request, 'content/accountBookmarks.html', {'book_set':books})
 
 @login_required
-def AccountLikes(request):
+def account_likes(request):
 	books = request.user.likes.all()
 	return render(request, 'content/accountLikes.html', {'book_set':books})
 
@@ -209,25 +206,25 @@ def AccountLikes(request):
 
 @login_required
 @staff_member_required
-def Rents(request):
+def rents(request):
 	rents = models.Rent.objects.all()
 	return render(request, 'content/rents.html', {'rents':rents})
 
 @login_required
 @staff_member_required
-def Rent(request,rent_id):
+def rent(request,rent_id):
 	rent = get_object_or_404(models.Rent, pk=rent_id)
 	return render(request, 'content/rent.html', {'rent':rent})
 
 @login_required
 @staff_member_required
-def ManageRequests(request):
+def manage_requests(request):
 	requests = models.Request.objects.all()
 	return render(request, 'content/requests.html', {'requests':requests})
 
 @login_required
 @staff_member_required
-def Request(request,request_id):
+def request(request,request_id):
 	request_obj = models.Request.objects.get(pk=request_id)
 	book = models.Book.objects.filter(goodreads_id=request_obj.goodreads_id)
 	return render(request, 'content/request.html', {'request_obj':request_obj,'book':book})
@@ -238,7 +235,7 @@ def Request(request,request_id):
 
 @login_required
 @staff_member_required
-def EditBook(request,book_id):
+def edit_book(request,book_id):
 
 	book = get_object_or_404(models.Book, pk=book_id)
 	form = forms.BookForm(request.POST or None, instance=book)
@@ -257,7 +254,7 @@ def EditBook(request,book_id):
 
 @login_required
 @staff_member_required
-def AddBook(request,ibook_id):
+def add_book(request,ibook_id):
 
 	book,created = utils.add_book_to_library(request,ibook_id)
 
@@ -269,7 +266,7 @@ def AddBook(request,ibook_id):
 	return redirect('book', book.pk)
 
 @login_required
-def RequestBook(request,ibook_id):
+def request_book(request,ibook_id):
 
 	request_obj,created = utils.request_book_to_library(request,ibook_id)
 
@@ -281,7 +278,7 @@ def RequestBook(request,ibook_id):
 	return redirect('ibook', ibook_id)
 
 @login_required
-def RentBook(request,book_id):
+def rent_book(request,book_id):
 
 	rents_available = request.user.profile.rents_available
 
@@ -312,7 +309,7 @@ def RentBook(request,book_id):
 
 @login_required
 @staff_member_required
-def ReturnRent(request,rent_id):
+def return_rent(request,rent_id):
 	
 	rent = get_object_or_404(models.Rent, pk=rent_id)
 
@@ -332,7 +329,7 @@ def ReturnRent(request,rent_id):
 
 
 @login_required
-def LikeToggle(request,book_id):
+def like_toggle(request,book_id):
 	
 	book = get_object_or_404(models.Book, pk=book_id)
 
@@ -346,7 +343,7 @@ def LikeToggle(request,book_id):
 	return redirect('book', book_id)
 
 @login_required
-def BookmarkToggle(request,book_id):
+def bookmark_toggle(request,book_id):
 	
 	book = get_object_or_404(models.Book, pk=book_id)
 

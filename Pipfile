@@ -17,6 +17,7 @@ idna = "*"
 pytz = "*"
 soupsieve = "*"
 urllib3 = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.7"
