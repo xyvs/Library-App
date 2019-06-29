@@ -49,9 +49,9 @@ Ejecuta la aplicación
 
 ## Uso
 
-Visitar localhost:8000 para utilizar el sistema como usuario no registrado.
+Visitar http://ocalhost:8000 para utilizar el sistema como usuario no registrado.
 
-Para utilizar el sistema como administrador ingresar las credenciales que ingresaste anteriormente en localhost:8000/accounts/login/.
+Para utilizar el sistema como administrador ingresar las credenciales que ingresaste anteriormente en http://localhost:8000/accounts/login/.
 
 ## Capturas
 

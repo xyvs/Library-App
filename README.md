@@ -49,9 +49,9 @@ Run the app
 
 ## Usage
 
-Visit localhost:8000 to use the app as a non registered user.
+Visit http://localhost:8000 to use the app as a non registered user.
 
-To use the app as an admin login with the credentials you introduced before in localhost:8000/accounts/login/.
+To use the app as an admin login with the credentials you introduced before in http://localhost:8000/accounts/login/.
 
 ## Screenshots
 
