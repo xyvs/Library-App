@@ -33,7 +33,7 @@ Instala los requerimientos
 
 Crea la SECRET_KEY (Sistemas UNIX)
 
-    echo "SECRET_KEY=$(python <(curl -s https://gist.githubusercontent.com/xyvs/77dbc0e6d46ef411770ced341a9fe983/raw/))" >> .env
+    echo "SECRET_KEY=$(python <(curl -s https://gist.githubusercontent.com/xyvs/77dbc0e6d46ef411770ced341a9fe983/raw/))" > .env
     
  Consigue una API key the Goodreads en este [enlace](https://www.goodreads.com/api) luego añadela al archivo .env de esta manera:
  
