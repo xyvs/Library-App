@@ -31,7 +31,15 @@ Install the requeriments
 
     pipenv install
 
-Create Super User
+Create SECRET_KEY (UNIX Systems)
+
+    echo "SECRET_KEY=$(python <(curl -s https://gist.githubusercontent.com/xyvs/77dbc0e6d46ef411770ced341a9fe983/raw/))" >> .env
+    
+ Get a Goodreads API key from [here](https://www.goodreads.com/api) and add it to the .env file like this:
+ 
+    GOODREADS_API_KEY={API_KEY}
+
+Create a super user
 
     python manage.py createsuperuser
 

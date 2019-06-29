@@ -2,13 +2,14 @@ import requests
 import xmltodict
 
 from . import models
+from django.conf import settings
 
 
 def search_books(search,page):
 	page_int = int(page) if page else 1
 
-	requestURL = 'https://www.goodreads.com/search/index.xml?key=elWTI430BrTmVA1tCbA&q={}&page={}'.format(search,page)
-	response = requests.get(url=requestURL)
+	request_url = f'https://www.goodreads.com/search/index.xml?key={settings.GOODREADS_API_KEY}&q={search}&page={page}'
+	response = requests.get(url=request_url)
 	reponse_xml = xmltodict.parse(response.text)
 
 	total_items = int(reponse_xml['GoodreadsResponse']['search']['total-results'])
@@ -41,14 +42,16 @@ def search_books(search,page):
 
 	return {'search':search, 'books':books, 'pagination':pagination}
 
+
 def get_book(ibook_id):
-	requestURL = 'https://www.goodreads.com/book/show/{}.xml?key=elWTI430BrTmVA1tCbA'.format(ibook_id)
-	response = requests.get(url=requestURL)
+	request_url = f'https://www.goodreads.com/book/show/{ibook_id}.xml?key={settings.GOODREADS_API_KEY}'
+	response = requests.get(url=request_url)
 
 	reponse_xml = xmltodict.parse(response.text)
 	ibook = reponse_xml['GoodreadsResponse']['book']
 
 	return ibook
+
 
 def add_book_to_library(request,ibook_id):
 
